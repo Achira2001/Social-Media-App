@@ -1,4 +1,5 @@
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes} from 'react-router-dom'
+import PageRender from './PageRender'
 
 function App() {
   return (
@@ -6,7 +7,8 @@ function App() {
       <input type="checkbox" id="theme" />
       <div className="App">
         <div className='App'>
-          <h1>Hello Client!</h1>
+          <Routes exact path="/:page" component={PageRender} />
+          <Routes exact path ="/:page/:id" component={PageRender} />
         </div> 
       </div>
     </Router>
