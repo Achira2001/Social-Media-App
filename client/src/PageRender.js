@@ -1,29 +1,38 @@
-import React from 'react'
-import {useParams} from 'react-router-dom'
+import React, { Suspense, lazy } from 'react';
+import { useParams } from 'react-router-dom';
+import NotFound from './components/NotFound';
+
+
+// Map for dynamic imports
+const pageMap = {
+    login: lazy(() => import('./pages/Login')),
+    register: lazy(() => import('./pages/Register')),
+    // Add other pages here if needed
+};
 
 const generatePage = (pageName) => {
-    const component =() => require('./pages/${pageName}').default
+    const PageComponent = pageMap[pageName.toLowerCase()];
 
-    try {
-        return React.createElement(component())
-    }catch (err){
-        return <NotFound />
+    if (!PageComponent) {
+        return <NotFound />;
     }
-}
+
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PageComponent />
+        </Suspense>
+    );
+};
 
 const PageRender = () => {
-    const {page, id} = useParams()
+    const { page, id } = useParams();
+    let pageName = page;
 
-  let pageName ="";
+    if (id) {
+        pageName = `${page}/${id}`;
+    }
 
-  if(id){
-    pageName = '${page/[id]'
-  }else{
-    pageName = '${page'
-  }
+    return generatePage(pageName);
+};
 
-  return generatePage(pageName)
-
-}
-
-export default PageRender
+export default PageRender;
