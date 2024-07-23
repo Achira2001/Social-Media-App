@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const authCtrl = {
     register: async (req, res) => {
         try {
-
+            const { fullname, username, email, password, gender } = req.body
         }catch (err) {
             return res.status(500).json({msg: err.message})
         }
