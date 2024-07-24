@@ -2,8 +2,6 @@ import React, { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import NotFound from './components/NotFound';
 
-
-// Map for dynamic imports
 const pageMap = {
     login: lazy(() => import('./pages/Login')),
     register: lazy(() => import('./pages/Register')),

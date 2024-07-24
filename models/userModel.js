@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     fullname: {
@@ -28,30 +28,45 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png'
     },
-    role: {type: String, default: 'user'},
-    gender: {type: String, default: 'male'},
-    mobile: {type: String, default: ''},
-    address: {type: String, default: ''},
+    role: {
+        type: String,
+        default: 'user'
+    },
+    gender: {
+        type: String,
+        default: 'male'
+    },
+    mobile: {
+        type: String,
+        default: ''
+    },
+    address: {
+        type: String,
+        default: ''
+    },
     story: {
-        type: String, 
+        type: String,
         default: '',
         maxlength: 200
     },
-    website: {type: String, default: ''},
+    website: {
+        type: String,
+        default: ''
+    },
     followers: [
         {
-            type: mongoose.Types.objectId, 
-            ref: ''
+            type: mongoose.Types.ObjectId, // Corrected type
+            ref: 'User'
         }
     ],
     following: [
         {
-            type: mongoose.Types.objectId, 
-            ref: ''
+            type: mongoose.Types.ObjectId, // Corrected type
+            ref: 'User'
         }
     ]
 }, {
     timestamps: true
-})
+});
 
-module.exports = mongoose.model('user', userSchema)
+module.exports = mongoose.model('User', userSchema);
