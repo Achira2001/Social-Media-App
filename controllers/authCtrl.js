@@ -33,6 +33,7 @@ const authCtrl = {
                 maxAge: 30*7*24*60*1000
             })
 
+                await newUser.save()
 
             res.json({ 
                 msg: 'Register success!',
@@ -49,14 +50,42 @@ const authCtrl = {
     },
     login: async (req, res) => {
         try {
-            // Login logic here
+            const { email, password} = req.body
+
+            const user = await User.findOne({email})
+            .populate("followers following", "-password")
+
+            if(!user) return res.status(400).json({msg: "This email does not exist."})
+
+            const isMatch = await bcrypt.compare(password, user.password)
+            if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+
+            const access_token = createAccessToken({id: user._id})
+            const refresh_token = createRefreshToken({id: user._id})
+    
+            res.cookie('refreshtoken', refresh_token,{
+                httpOnly: true,
+                path: '/api/refresh_token',
+                maxAge: 30*7*24*60*1000
+            }) 
+
+            res.json({ 
+                msg: 'Login success!',
+                access_token,
+                user: {
+                    ...user._doc,
+                    password: ''
+                } 
+
+            });
+
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
     },
     logout: async (req, res) => {
         try {
-            // Logout logic here
+            res.clearCookie('refreshtoken')
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
