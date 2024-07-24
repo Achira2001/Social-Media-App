@@ -63,7 +63,7 @@ const createAccessToken = (payload) => {
 }
 
 const createRefreshToken = () => {
-
+    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '30d'})
 }
  
 
