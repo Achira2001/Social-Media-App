@@ -27,8 +27,20 @@ const authCtrl = {
             const access_token = createAccessToken({id: newUser._id})
             const refresh_token = createRefreshToken({id: newUser._id})
 
+            res.cookie('refreshtoken', refresh_token,{
+                httpOnly: true,
+                path: '/api/refresh_token',
+                maxAge: 30*7*24*60*1000
+            })
+
+
             res.json({ 
-                msg: 'Register success!' 
+                msg: 'Register success!',
+                access_token,
+                user: {
+                    ...newUser._doc,
+                    password: ''
+                } 
 
             });
         } catch (err) {
@@ -62,7 +74,7 @@ const createAccessToken = (payload) => {
     return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
 }
 
-const createRefreshToken = () => {
+const createRefreshToken = (payload) => {
     return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '30d'})
 }
  
