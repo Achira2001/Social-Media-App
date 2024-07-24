@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-//Routes
-app.use('/aoi', require('./routes/authRouter'))
+// Routes
+app.use('/api', require('./routes/authRouter')); // Note the corrected route prefix
 
 const URI = process.env.MONGODB_URL;
 
@@ -27,5 +27,5 @@ mongoose.connect(URI, {
 
 const port = process.env.PORT || 5000; // Change to a different port if needed
 app.listen(port, () => {
-    console.log('Server is running on port', port);
+    console.log(`Server is running on port ${port}`);
 });
