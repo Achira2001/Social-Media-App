@@ -9,9 +9,8 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-    res.json({ msg: "Hello" });
-});
+//Routes
+app.use('/aoi', require('./routes/authRouter'))
 
 const URI = process.env.MONGODB_URL;
 
