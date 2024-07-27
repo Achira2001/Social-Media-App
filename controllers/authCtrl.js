@@ -93,7 +93,12 @@ const authCtrl = {
     },
     generateAccessToken: async (req, res) => {
         try {
-            // Token generation logic here
+            const rf_token = reg.cookies.refresh_tokenres.json({rf_token})
+            if(!rf_token) return res.status(400).json({msg: "Please login now."})
+            
+                jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err, result) => {
+                    if(err) return res.status(400).json({msg: "Please login now."})
+                })
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
