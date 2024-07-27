@@ -98,6 +98,14 @@ const authCtrl = {
             
                 jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err, result) => {
                     if(err) return res.status(400).json({msg: "Please login now."})
+
+                    console.log(result)
+                    //const user - await User.findById(result.id).select("-password")
+                    .populate('followers following', '-password')
+
+                    if(!user) return res.status(400).json({msg: "This does not exist."})
+
+                    const access_token = createAccessToken({id: result.id})
                 })
         } catch (err) {
             return res.status(500).json({ msg: err.message });
