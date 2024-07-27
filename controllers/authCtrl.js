@@ -106,6 +106,11 @@ const authCtrl = {
                     if(!user) return res.status(400).json({msg: "This does not exist."})
 
                     const access_token = createAccessToken({id: result.id})
+
+                    res.json({
+                        access_token,
+                        user
+                    })
                 })
         } catch (err) {
             return res.status(500).json({ msg: err.message });
