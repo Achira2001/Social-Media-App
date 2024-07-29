@@ -52,9 +52,15 @@ const Login = () => {
             Check me out
           </label>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
+        <button type="submit" className="btn btn-dark w-100"
+        disabled={email && password ? false : true}>
+          Login
         </button>
+
+        <p className="my-2">
+          You don't have an account? <Link to="/register" style={{color: "crimson"}}>Register</Link>
+        </p>
+
       </form>
     </div>
   );
