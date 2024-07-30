@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import NotFound from './components/NotFound';
 
 const pageMap = {
-    login: lazy(() => import('./pages/Login')),
-    register: lazy(() => import('./pages/Register')),
+    login: lazy(() => import('./pages/login')),
+    register: lazy(() => import('./pages/register')),
     // Add other pages here if needed
 };
 

@@ -1,14 +1,11 @@
-import { TYPES } from '../actions/authAction'
-
-const initialState = {}
-
-const authReducer = (state = initialState, action) => {
-    switch (action.type){
-        case TYPES.AUTH:
-            return action.payload;
-        default:
-            return state;
-    }
+export const TYPES = {
+    AUTH: 'AUTH'
 }
 
-export default authReducer
+export const login = (data) => {
+    try{
+        
+    } catch (err){
+
+    }
+}
