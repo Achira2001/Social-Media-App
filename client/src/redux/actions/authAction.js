@@ -2,10 +2,10 @@ export const TYPES = {
     AUTH: 'AUTH'
 }
 
-export const login = (data) => {
+export const login = (data) => (dispatch) => {
     try{
-        
-    } catch (err){
+        dispatch({type: 'NOTIFY', })
+    } catch (err) {
 
     }
 }
