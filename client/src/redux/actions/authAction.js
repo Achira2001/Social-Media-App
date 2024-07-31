@@ -4,7 +4,7 @@ export const TYPES = {
 
 export const login = (data) => (dispatch) => {
     try{
-        dispatch({type: 'NOTIFY', })
+        dispatch({ type: 'NOTIFY', payload: {loading: true} })
     } catch (err) {
 
     }
